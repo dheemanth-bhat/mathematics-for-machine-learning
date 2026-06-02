@@ -1,0 +1,45 @@
+{% extends 'lab/index.html.j2' %}
+
+{% block html_head %}
+{{ super() }}
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    let counters = [0, 0, 0];
+    let firstH3Skipped = false;
+    document.querySelectorAll("h1, h2, h3")
+        .forEach(function (heading) {
+            const tagLevel = parseInt(heading.tagName[1]);
+
+            // Ignore all H1 headings
+            if (tagLevel === 1) {
+                return;
+            }
+
+            // Skip first H3
+            if (tagLevel === 3 && !firstH3Skipped) {
+                firstH3Skipped = true;
+                return;
+            }
+
+            const level = tagLevel - 2;
+
+            counters[level]++;
+
+            // Reset only lower levels
+            for (let i = level + 1; i < counters.length; i++) {
+                counters[i] = 0;
+            }
+
+            const numbering = counters.slice(0, level + 1).join(".");
+
+            const span = document.createElement("span");
+            span.textContent = numbering + " ";
+
+            heading.prepend(span);
+        });
+});
+</script>
+
+{% endblock html_head %}
