@@ -1,0 +1,14 @@
+jupyterlab
+notebook
+numpy
+scipy
+statsmodels
+sympy
+pandas
+matplotlib
+seaborn
+wordcloud
+scikit-learn
+black
+isort
+ipywidgets
